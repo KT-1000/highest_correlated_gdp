@@ -12,8 +12,8 @@ def find_highest_correlated_gdp(gdp_file, country_file):
     :return hcgdp_ctry: country with highest correlated GDP
     """
     hcgdp_ctry = None
-    gdp_frame = pd.read_csv(gdp_file)
-    ctry_frame = pd.read_csv(country_file)
+    gdp_frame = pd.read_csv(gdp_file, index_col=0, skiprows=2)
+    ctry_frame = pd.read_csv(country_file, index_col=0)
 
     return hcgdp_ctry
 
