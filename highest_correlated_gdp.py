@@ -12,11 +12,30 @@ def find_highest_correlated_gdp(gdp_file, country_file):
     :return hcgdp_ctry: country with highest correlated GDP
     """
     hcgdp_ctry = None
-    gdp_frame = pd.read_csv(gdp_file, index_col=0, skiprows=2)
-    ctry_frame = pd.read_csv(country_file, index_col=0)
+
+    # create data frames from each csv
+    gdp_frame = pd.read_csv(gdp_file,
+                            sep=",",
+                            index_col=0,
+                            skiprows=2,
+                            skipinitialspace=True,
+                            encoding="utf-8")
+
+    for gdp_col in gdp_frame.columns:
+        gdp_col.replace("\n", "").replace(" ", "").replace("\\", "")
+
+    ctry_frame = pd.read_csv(country_file,
+                             index_col=0,
+                             skipinitialspace=True,
+                             encoding="utf-8")
+    # clean 'em up
+    # combine into one data frame on country name
+    # get the correlation of this combined data frame (using .corr)
+
+    print(gdp_frame.head())
 
     return hcgdp_ctry
 
 
 if __name__ == "__main__":
-    find_highest_correlated_gdp('data_files/GDP.csv', 'Metadata_Country')
+    print(find_highest_correlated_gdp('data_files/GDP.csv', 'data_files/Metadata_Country.csv'))
